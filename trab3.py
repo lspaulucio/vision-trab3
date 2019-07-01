@@ -21,3 +21,14 @@ se a calibração da câmera e o tamanho do padrão forem fornecidas. Essas roti
 reconstrução 3D fornecida pelo trabalho de vocês, mas não serão aceitas como o trabalho a ser feito. Portanto, lembrem-se que vocês
 deverão desenvolver a rotina de reconstrução, a partir da detecção do ARUCO acoplado ao robô nas imagens 2D capturadas nos vídeos.
 """
+
+
+# [] are for JSON arrays, which are called list in Python
+# {} are for JSON objects, which are called dict in Python
+
+from Camera import Camera
+
+cam0 = Camera('camera/0.json')
+cam1 = Camera('camera/1.json')
+cam2 = Camera('camera/2.json')
+cam3 = Camera('camera/3.json')
