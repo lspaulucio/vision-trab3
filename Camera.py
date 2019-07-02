@@ -12,12 +12,16 @@ class Camera:
         self.resolution = None
         self.error = None
         self.distortion = None
+        self.id = None
 
         if filename is not None:
             self.readCalibrationJSON(filename)
 
     def getError(self):
         return self.error
+
+    def getID(self):
+        return self.id
 
     def getDistortion(self):
         return self.distortion
@@ -43,6 +47,7 @@ class Camera:
             data = json.load(json_file)
             self.resolution = data['resolution']['width'], data['resolution']['height']
             self.error = data['error']
+            self.id = data['id']
             distortion = data['distortion']
             shape = distortion['shape']['dims'][0]['size'], distortion['shape']['dims'][1]['size']
             self.distortion = np.array(distortion['doubles']).reshape(shape)
