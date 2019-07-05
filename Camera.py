@@ -6,7 +6,7 @@ import json
 class Camera:
     """ Camera class """
 
-    def __init__(self, filename):
+    def __init__(self, filename=None):
         self.intrinsicMatrix = None
         self.extrinsicMatrix = None
         self.resolution = None

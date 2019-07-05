@@ -27,8 +27,47 @@ deverão desenvolver a rotina de reconstrução, a partir da detecção do ARUCO
 # {} are for JSON objects, which are called dict in Python
 
 from Camera import Camera
+import numpy as np
 
-cam0 = Camera('camera/0.json')
-cam1 = Camera('camera/1.json')
-cam2 = Camera('camera/2.json')
-cam3 = Camera('camera/3.json')
+
+# cam0 = Camera('camera/0.json')
+# cam1 = Camera('camera/1.json')
+# cam2 = Camera('camera/2.json')
+# cam3 = Camera('camera/3.json')
+#
+# print(np.linalg.inv(cam0.getExtrinsicMatrix()))
+
+import cv2
+import numpy as np
+from cv2 import aruco
+
+file_name = "videos/camera-00.mp4"
+aruco_dict = aruco.Dictionary_get(aruco.DICT_4X4_50)
+parameters = aruco.DetectorParameters_create()
+vid = cv2.VideoCapture(file_name)
+cam = Camera('camera/3.json')
+
+while True:
+    _, img = vid.read()
+    if img is None:
+        print("Empty Frame")
+        break
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    corners, ids, rejectedImgPoints = aruco.detectMarkers(gray, aruco_dict, parameters=parameters)
+    if len(corners) != 0:
+        centroid = np.mean(corners[0], axis=1)
+    frame = img.copy()
+    frame_markers = aruco.drawDetectedMarkers(frame, corners, ids)
+    rvec, tvec, _ = aruco.estimatePoseSingleMarkers(corners, 0.3, cam.getIntrinsicMatrix(), cam.getDistortion())
+
+    if ids is not None:
+        for i in range(0, ids.size):
+            # draw axis for the aruco markers
+            aruco.drawAxis(frame, cam.getIntrinsicMatrix(), cam.getDistortion(), rvec[i], tvec[i], 0.1)
+
+    cv2.imshow('output', frame_markers)
+    cv2.waitKey()
+    if cv2.waitKey(1) == ord('q'):
+        break
+
+cv2.destroyAllWindows()
