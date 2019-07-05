@@ -79,7 +79,10 @@ while True:
 cv2.destroyAllWindows()
 
 
-""" TO DO
+"""  Os dados relativos aos parâmetros extrínsecos fornecidos no arquivo .json representam a transformação que realiza
+a mudança de base do referencial das câmeras para o referencial do mundo.
+
+TO DO
     Pegar pontos de cada camera e armazenar em uma lista
     montar matriz do sistema para cada conjunto de pontos do msm frame
     resolver o sistema de equações
