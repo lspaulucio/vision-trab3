@@ -13,6 +13,7 @@ class Camera:
         self.error = None
         self.distortion = None
         self.id = None
+        self.videoPATH = None
 
         if filename is not None:
             self.readCalibrationJSON(filename)
@@ -35,6 +36,9 @@ class Camera:
     def getExtrinsicMatrix(self):
         return self.extrinsicMatrix
 
+    def getVideoPATH(self):
+        return self.videoPATH
+
     @staticmethod
     def newProjectionMatrix():
 
@@ -43,11 +47,15 @@ class Camera:
                          [0, 0, 1, 0]])
 
     def readCalibrationJSON(self, filename):
+        # [] are for JSON arrays, which are called list in Python
+        # {} are for JSON objects, which are called dict in Python
+
         with open(filename) as json_file:
             data = json.load(json_file)
             self.resolution = data['resolution']['width'], data['resolution']['height']
             self.error = data['error']
             self.id = data['id']
+            self.videoPATH = "videos/camera-0" + self.id + ".mp4"
             distortion = data['distortion']
             shape = distortion['shape']['dims'][0]['size'], distortion['shape']['dims'][1]['size']
             self.distortion = np.array(distortion['doubles']).reshape(shape)
