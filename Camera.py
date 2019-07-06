@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+
+""" Aluno: Leonardo Santos Paulucio
+    Data: 10/07/19
+    Trabalho 3 de Visão Computacional
+"""
+
 # Standard libraries
 import numpy as np
 import json
