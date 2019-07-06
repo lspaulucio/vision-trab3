@@ -64,4 +64,4 @@ class Camera:
             self.intrinsicMatrix = np.array(intrinsic['doubles']).reshape(shape)
             extrinsic = data['extrinsic']['tf']
             shape = extrinsic['shape']['dims'][0]['size'], extrinsic['shape']['dims'][1]['size']
-            self.extrinsicMatrix = np.array(extrinsic['doubles']).reshape(shape)
+            self.extrinsicMatrix = np.linalg.inv(np.array(extrinsic['doubles']).reshape(shape))
