@@ -67,7 +67,7 @@ if __name__ == "__main__":
                                                                   parameters=parameters,
                                                                   distCoeff=cam.getDistortion())
 
-            if len(corners) != 0:
+            if ids is not None:
                 centroid = np.mean(corners[0], axis=1)
                 processed_frames[i].append(centroid[0].tolist())
             else:
