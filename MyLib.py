@@ -58,7 +58,7 @@ def recoverPosition3D(cameras, points):
     points = [points[i] for i in idx]
     A, b = createLinearMatrixEquation(cameras, points)
 
-    return np.dot(np.linalg.pinv(A), b)[:-1,:]
+    return np.dot(np.linalg.pinv(A), b)[:-1, :]
 
 
 def plotPoints3D(points, title="3D points"):
@@ -69,9 +69,9 @@ def plotPoints3D(points, title="3D points"):
     ax0.set_xlabel('x-axis')
     ax0.set_ylabel('y-axis')
     ax0.set_zlabel('z-axis')
-    ax0.set_xlim([-2,2])
-    ax0.set_ylim([-1,1])
-    ax0.set_zlim([0,4])
+    ax0.set_xlim([-2, 2])
+    ax0.set_ylim([-1, 1])
+    ax0.set_zlim([0, 4])
 
     ax0.plot3D(points[0, :], points[1, :], points[2, :], 'k.')
     ax0.view_init(elev=25, azim=-65)
